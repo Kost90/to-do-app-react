@@ -3,7 +3,7 @@ import '../../../App.css'
 import style from './Taskitem.module.css'
 import React, {useState, useCallback} from 'react'
 import TasksForm from '../Taskform/TasksForm'
-import Checkbox from '../checkbox/Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 
 function TasksItem({text, id, onDelete, onEdit, onDone}) {
   const [isEditing, setIsEditing] = useState(false);

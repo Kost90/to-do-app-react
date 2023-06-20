@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import { v4 as uuidv4 } from 'uuid'
-
-import TasksForm from '../ui/Taskform/TasksForm';
-import TasksItem from '../ui/taskitem/TasksItem';
+import TasksItem from '../ui/Taskitem/TasksItem';
 import Donetasks from 'components/ui/Donetasks/Donetasks';
+import CreateTaskForm from './CreateTaskForm';
 
 
 const taskData = localStorage.getItem("tasks")
@@ -14,26 +12,9 @@ const DoneTasks = taskData.filter(element => element.status !== false);
 
 function Tasks() {
   const [tasks,setTasks] = useState(taskData)
+
+  const onCreateTask = (task) => setTasks(prev => [...prev, task])
  
-  const addTask = e => {
-    e.preventDefault();
-    
-    const formData = new FormData (e.target);
-    if(formData.get("text") !== ''){
-      const task = {
-        id: uuidv4(),
-        text: formData.get("text"),
-        status: false,
-    };
-    setTasks(prev => [...prev, task]);
-    e.target.reset()
-    } else{
-      return
-    }
-  };
-
-  useEffect(() => {localStorage.setItem('tasks', JSON.stringify(tasks))},[tasks]);
-
   const deleteTask = id =>{
     setTasks(prev => prev.filter(task => task.id !== id))
     localStorage.setItem('tasks', JSON.stringify(tasks))
@@ -56,11 +37,13 @@ function Tasks() {
       return copyTasks
     })
   }
+
+  useEffect(() => {localStorage.setItem('tasks', JSON.stringify(tasks))},[tasks]);
   
   return (
     <div>
-      <TasksForm 
-      onSubmit ={addTask}
+      <CreateTaskForm 
+      onCreateTask={onCreateTask}
       titel ={'Add task'}/>
       <ul>
         {tasks.map(task =>(
