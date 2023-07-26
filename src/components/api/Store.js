@@ -1,9 +1,8 @@
-import React from 'react'
+import { configureStore } from '@reduxjs/toolkit'
+import  TasksReducer  from 'components/Tasks/TasksSlicer'
 
-function Store() {
-  return (
-    <div>Store</div>
-  )
-}
-
-export default Store
+export const Store = configureStore ({
+  reducer: {
+    todos: TasksReducer,
+  }
+}) 

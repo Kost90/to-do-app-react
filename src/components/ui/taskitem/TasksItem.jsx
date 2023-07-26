@@ -4,10 +4,14 @@ import style from './Taskitem.module.css'
 import React, {useState, useCallback} from 'react'
 import TasksForm from '../Taskform/TasksForm'
 import Checkbox from '../Checkbox/Checkbox';
+import { useDispatch } from 'react-redux';
+import { removetask } from 'components/Tasks/TasksSlicer';
 
-function TasksItem({text, id, onDelete, onEdit, onDone}) {
+function TasksItem({text, id, onEdit, onDone}) {
   const [isEditing, setIsEditing] = useState(false);
   const [check,setCheck] = useState(false);
+
+  const dispatch = useDispatch()
 
 
   const toggleChange = useCallback(e => {
@@ -21,9 +25,12 @@ function TasksItem({text, id, onDelete, onEdit, onDone}) {
     onDone(doneTAsk)
   },[])
 
+
   const toggleEditing = () => setIsEditing(prev => !prev)
 
-  const handleDelete = () => onDelete(id)
+  const handleDelete = (id) => {
+    dispatch(removetask(id))
+  };
 
 
   const handleEdit = e => {

@@ -1,8 +1,12 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import TasksForm from 'components/ui/Taskform/TasksForm'
+import { useDispatch } from 'react-redux'
+import { addtask } from './TasksSlicer'
 
-function CreateTaskForm({ onCreateTask, defaultValues = {}, titel }) {
+function CreateTaskForm({ defaultValues = {}, titel }) {
+const dispatch = useDispatch();
+
         const handleSubmit = e => {
           e.preventDefault()
       
@@ -14,7 +18,7 @@ function CreateTaskForm({ onCreateTask, defaultValues = {}, titel }) {
               text: formData.get('text'),
               status: false,
             }
-            onCreateTask(task)
+            dispatch(addtask(task))
             e.target.reset()
           } else {
             return
