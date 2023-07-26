@@ -10,8 +10,8 @@ export const TasksSlice = createSlice({
             state.tasks.push(action.payload)
         },
         removetask:(state,action) =>{
-           state.tasks = state.tasks.filter(task => {
-                task.id !== action.payload})
+           state.tasks = state.tasks.filter(task => 
+                task.id !== action.payload)
         },
         edittask: (state,action) =>{
             const index = state.tasks.findIndex(task =>
