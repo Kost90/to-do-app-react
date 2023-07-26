@@ -3,17 +3,14 @@ import style from "./Taskitem.module.css";
 import React, { useState} from "react";
 import TasksForm from "../Taskform/TasksForm";
 import { useDispatch } from "react-redux";
-import { removetask, edittask } from "components/Tasks/TasksSlicer";
+import { edittask } from "components/Tasks/TasksSlicer";
 
-function TasksItem({ text, id }) {
+function TasksItem({ text, id, onDelete }) {
+
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
 
   const toggleEditing = () => setIsEditing((prev) => !prev);
-
-  const handleDelete = (id) => {
-    dispatch(removetask(id));
-  };
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -44,7 +41,7 @@ function TasksItem({ text, id }) {
           <button type="button" onClick={toggleEditing}>
             Edit Task
           </button>
-          <button type="button" onClick={() => handleDelete(id)}>
+          <button type="button" onClick={() => onDelete(id)}>
             Delete
           </button>
         </>
